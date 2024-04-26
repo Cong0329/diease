@@ -1,0 +1,30 @@
+<!-- home.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+  </head>
+  <body>
+    <h1>Data from CSV</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Disease</th>
+          <th>Fever</th>
+          <!-- Thêm các tiêu đề còn lại tương ứng với các trường trong file CSV -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in data %}
+        <tr>
+          <td>{{ row.Disease }}</td>
+          <td>{{ row.Fever }}</td>
+          <!-- Thêm các trường dữ liệu còn lại tương ứng với các trường trong file CSV -->
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
