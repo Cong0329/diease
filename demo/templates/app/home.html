@@ -1,30 +1,92 @@
-<!-- home.html -->
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-  </head>
-  <body>
-    <h1>Data from CSV</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Disease</th>
-          <th>Fever</th>
-          <!-- Thêm các tiêu đề còn lại tương ứng với các trường trong file CSV -->
-        </tr>
-      </thead>
-      <tbody>
-        {% for row in data %}
-        <tr>
-          <td>{{ row.Disease }}</td>
-          <td>{{ row.Fever }}</td>
-          <!-- Thêm các trường dữ liệu còn lại tương ứng với các trường trong file CSV -->
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </body>
-</html>
+{% extends 'app/base.html' %} {% load static %} {% block home-content %}
+
+<style>
+  .form {
+    background-color: #f8f9fa;
+    padding-top: 20px;
+  }
+</style>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2>Enter Patient Data</h2>
+    </div>
+    <div class="col-6 form" style="border-radius: 20px 0 0 20px">
+      <form method="post" action="{% url 'predict_result' %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" class="form-control" id="name" name="name" />
+        </div>
+
+        <div class="form-group">
+          <label for="age">Age:</label>
+          <input type="number" class="form-control" id="age" name="age" />
+        </div>
+
+        <div class="form-group">
+          <label for="disease">Disease:</label>
+          <input type="text" class="form-control" id="disease" name="disease" />
+        </div>
+
+        <div class="form-group">
+          <label for="fever">Fever:</label>
+          <input type="text" class="form-control" id="fever" name="fever" />
+        </div>
+
+        <div class="form-group">
+          <label for="cough">Cough:</label>
+          <input type="text" class="form-control" id="cough" name="cough" />
+
+        </div>
+      </div>
+
+      <div class="col-6 form" style="border-radius: 0 20px 20px 0">
+        <div class="form-group">
+          <label for="gender">Gender:</label>
+          <input type="text" class="form-control" id="gender" name="gender" />
+        </div>
+
+        <div class="form-group">
+          <label for="blood_pressure">Blood Pressure:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="blood_pressure"
+            name="blood_pressure"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="cholesterol_level">Cholesterol Level:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="cholesterol_level"
+            name="cholesterol_level"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="fatigue">Fatigue:</label>
+          <input type="text" class="form-control" id="fatigue" name="fatigue" />
+
+        </div>
+
+        <div class="form-group">
+          <label for="difficulty_breathing">Difficulty Breathing:</label>
+          <input type="text" class="form-control" id="difficulty_breathing" name="difficulty_breathing" />
+
+        </div>
+      </div>
+      
+      <div class="col-12  d-flex justify-content-center mt-3">
+        <input type="submit" value="Submit" class="btn btn-secondary" />
+      </div>
+
+      </form>
+    </div>
+  </div>
+
+  {% endblock home-content %}
+</div>
