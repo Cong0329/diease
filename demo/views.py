@@ -21,12 +21,16 @@ def predict_result(request):
         # Load data
         df = pd.read_csv("data.csv")
 
+        disease_names = df['Disease'].unique()
         # Handling missing and duplicate values
         df.isnull().sum()
         df.duplicated().sum()
         df = df.drop_duplicates(keep='first').reset_index(drop=True)
         df = df[(df['Age'] >= 20) & (df['Age'] <= 70)]
         df.reset_index(drop=True, inplace=True)
+
+        disease_mapping = {disease_name: i for i, disease_name in enumerate(disease_names)}
+
 
         # Encoding categorical features
         x_encoder = OneHotEncoder(sparse_output=False, drop='first')
@@ -62,7 +66,7 @@ def predict_result(request):
         # New input for prediction
         new_input = {
             'Name': request.POST.get('Name', ''),
-            'Disease': int(request.POST.get('Disease', 0)),
+            'Disease': request.POST.get('Disease', ''),
             'Fever': int(request.POST.get('Fever', 0)),
             'Cough': int(request.POST.get('Cough', 0)),
             'Fatigue': int(request.POST.get('Fatigue', 0)),
@@ -72,6 +76,8 @@ def predict_result(request):
             'Blood Pressure': int(request.POST.get('BloodPressure', 0)),
             'Cholesterol Level': int(request.POST.get('CholesterolLevel', 0)),
         }
+        disease_encoded = disease_mapping.get(new_input['Disease'], -1)
+        new_input['Disease'] = disease_encoded
 
         print("New Input:", new_input)
         
