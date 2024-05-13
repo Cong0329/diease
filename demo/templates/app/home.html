@@ -1,92 +1,57 @@
 {% extends 'app/base.html' %} {% load static %} {% block home-content %}
 
-<style>
-  .form {
-    background-color: #f8f9fa;
-    padding-top: 20px;
-  }
-</style>
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h2>Enter Patient Data</h2>
-    </div>
-    <div class="col-6 form" style="border-radius: 20px 0 0 20px">
-      <form method="post" action="{% url 'predict_result' %}">
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="name">Name:</label>
-          <input type="text" class="form-control" id="name" name="name" />
-        </div>
-
-        <div class="form-group">
-          <label for="age">Age:</label>
-          <input type="number" class="form-control" id="age" name="age" />
-        </div>
-
-        <div class="form-group">
-          <label for="disease">Disease:</label>
-          <input type="text" class="form-control" id="disease" name="disease" />
-        </div>
-
-        <div class="form-group">
-          <label for="fever">Fever:</label>
-          <input type="text" class="form-control" id="fever" name="fever" />
-        </div>
-
-        <div class="form-group">
-          <label for="cough">Cough:</label>
-          <input type="text" class="form-control" id="cough" name="cough" />
-
-        </div>
-      </div>
-
-      <div class="col-6 form" style="border-radius: 0 20px 20px 0">
-        <div class="form-group">
-          <label for="gender">Gender:</label>
-          <input type="text" class="form-control" id="gender" name="gender" />
-        </div>
-
-        <div class="form-group">
-          <label for="blood_pressure">Blood Pressure:</label>
-          <input
-            type="text"
-            class="form-control"
-            id="blood_pressure"
-            name="blood_pressure"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="cholesterol_level">Cholesterol Level:</label>
-          <input
-            type="text"
-            class="form-control"
-            id="cholesterol_level"
-            name="cholesterol_level"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="fatigue">Fatigue:</label>
-          <input type="text" class="form-control" id="fatigue" name="fatigue" />
-
-        </div>
-
-        <div class="form-group">
-          <label for="difficulty_breathing">Difficulty Breathing:</label>
-          <input type="text" class="form-control" id="difficulty_breathing" name="difficulty_breathing" />
-
-        </div>
-      </div>
-      
-      <div class="col-12  d-flex justify-content-center mt-3">
-        <input type="submit" value="Submit" class="btn btn-secondary" />
-      </div>
-
-      </form>
-    </div>
+<h2>Enter Patient Data</h2>
+<form method="POST" action="{% url 'predict_result' %}">
+  {% csrf_token %}
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="Name" /><br /><br />
   </div>
+  <div>
+    <label for="disease">Disease:</label>
+    <input type="number" id="disease" name="Disease" /><br /><br />
+  </div>
+  <div>
+    <label for="fever">Fever:</label>
+    <input type="number" id="fever" name="Fever" /><br /><br />
+  </div>
+  <div>
+    <label for="cough">Cough:</label>
+    <input type="number" id="cough" name="Cough" /><br /><br />
+  </div>
+  <div>
+    <label for="fatigue">Fatigue:</label>
+    <input type="number" id="fatigue" name="Fatigue" /><br /><br />
+  </div>
+  <div>
+    <label for="difficulty_breathing">Difficulty Breathing:</label>
+    <input
+      type="number"
+      id="difficulty_breathing"
+      name="DifficultyBreathing"
+    /><br /><br />
+  </div>
+  <div>
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="Age" /><br /><br />
+  </div>
+  <div>
+    <label for="gender">Gender:</label>
+    <input type="number" id="gender" name="Gender" /><br /><br />
+  </div>
+  <div>
+    <label for="blood_pressure">Blood Pressure:</label>
+    <input type="number" id="blood_pressure" name="BloodPressure" /><br /><br />
+  </div>
+  <div>
+    <label for="cholesterol_level">Cholesterol Level:</label>
+    <input
+      type="number"
+      id="cholesterol_level"
+      name="CholesterolLevel"
+    /><br /><br />
+  </div>
+  <input type="submit" value="Submit" />
+</form>
 
-  {% endblock home-content %}
-</div>
+{% endblock home-content %}
