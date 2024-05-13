@@ -22,6 +22,13 @@ def predict_result(request):
         df = pd.read_csv("data.csv")
 
         disease_names = df['Disease'].unique()
+        fever_names = df['Fever'].unique()
+        cough_names = df['Cough'].unique()
+        fatigue_names = df['Fatigue'].unique()
+        difficultybreathing_names = df['Difficulty Breathing'].unique()
+        bloodpressure_names = df['Blood Pressure'].unique()
+        cholesterollevel_names = df['Cholesterol Level'].unique()
+
         # Handling missing and duplicate values
         df.isnull().sum()
         df.duplicated().sum()
@@ -30,6 +37,12 @@ def predict_result(request):
         df.reset_index(drop=True, inplace=True)
 
         disease_mapping = {disease_name: i for i, disease_name in enumerate(disease_names)}
+        fever_mapping = {fever_name: i for i, fever_name in enumerate(fever_names)}
+        cough_mapping = {cough_name: i for i, cough_name in enumerate(cough_names)}
+        fatigue_mapping = {fatigue_name: i for i, fatigue_name in enumerate(fatigue_names)}
+        difficultybreathing_mapping = {difficultybreathing_name: i for i, difficultybreathing_name in enumerate(difficultybreathing_names)}
+        bloodpressure_mapping = {bloodpressure_name: i for i, bloodpressure_name in enumerate(bloodpressure_names)}
+        cholesterollevel_mapping = {cholesterollevel_name: i for i, cholesterollevel_name in enumerate(cholesterollevel_names)}
 
 
         # Encoding categorical features
@@ -67,17 +80,36 @@ def predict_result(request):
         new_input = {
             'Name': request.POST.get('Name', ''),
             'Disease': request.POST.get('Disease', ''),
-            'Fever': int(request.POST.get('Fever', 0)),
-            'Cough': int(request.POST.get('Cough', 0)),
-            'Fatigue': int(request.POST.get('Fatigue', 0)),
-            'Difficulty Breathing': int(request.POST.get('DifficultyBreathing', 0)),
+            'Fever': request.POST.get('Fever', 0),
+            'Cough': request.POST.get('Cough', 0),
+            'Fatigue': request.POST.get('Fatigue', 0),
+            'Difficulty Breathing': request.POST.get('DifficultyBreathing', 0),
             'Age': int(request.POST.get('Age', 0)),
             'Gender': int(request.POST.get('Gender', 0)),
-            'Blood Pressure': int(request.POST.get('BloodPressure', 0)),
-            'Cholesterol Level': int(request.POST.get('CholesterolLevel', 0)),
+            'Blood Pressure': request.POST.get('BloodPressure', 0),
+            'Cholesterol Level': request.POST.get('CholesterolLevel', 0),
         }
+        
         disease_encoded = disease_mapping.get(new_input['Disease'], -1)
         new_input['Disease'] = disease_encoded
+
+        fever_encoded = fever_mapping.get(new_input['Fever'], -1)
+        new_input['Fever'] = fever_encoded
+
+        cough_encoded = cough_mapping.get(new_input['Cough'], -1)
+        new_input['Cough'] = cough_encoded
+
+        fatigue_encoded = fatigue_mapping.get(new_input['Fatigue'], -1)
+        new_input['Fatigue'] = fatigue_encoded
+
+        difficultybreathing_encoded = difficultybreathing_mapping.get(new_input['Difficulty Breathing'], -1)
+        new_input['Difficulty Breathing'] = difficultybreathing_encoded
+
+        bloodpressure_encoded = bloodpressure_mapping.get(new_input['Blood Pressure'], -1)
+        new_input['Blood Pressure'] = bloodpressure_encoded
+
+        cholesterollevel_encoded = cholesterollevel_mapping.get(new_input['Cholesterol Level'], -1)
+        new_input['Cholesterol Level'] = cholesterollevel_encoded
 
         print("New Input:", new_input)
         
