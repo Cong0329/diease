@@ -28,6 +28,7 @@ def predict_result(request):
         difficultybreathing_names = df['Difficulty Breathing'].unique()
         bloodpressure_names = df['Blood Pressure'].unique()
         cholesterollevel_names = df['Cholesterol Level'].unique()
+        gender_names = df['Gender'].unique()
 
         # Handling missing and duplicate values
         df.isnull().sum()
@@ -43,6 +44,8 @@ def predict_result(request):
         difficultybreathing_mapping = {difficultybreathing_name: i for i, difficultybreathing_name in enumerate(difficultybreathing_names)}
         bloodpressure_mapping = {bloodpressure_name: i for i, bloodpressure_name in enumerate(bloodpressure_names)}
         cholesterollevel_mapping = {cholesterollevel_name: i for i, cholesterollevel_name in enumerate(cholesterollevel_names)}
+        gender_mapping = {gender_name: i for i, gender_name in enumerate(gender_names)}
+
 
 
         # Encoding categorical features
@@ -85,7 +88,7 @@ def predict_result(request):
             'Fatigue': request.POST.get('Fatigue', 0),
             'Difficulty Breathing': request.POST.get('DifficultyBreathing', 0),
             'Age': int(request.POST.get('Age', 0)),
-            'Gender': int(request.POST.get('Gender', 0)),
+            'Gender': request.POST.get('Gender', 0),
             'Blood Pressure': request.POST.get('BloodPressure', 0),
             'Cholesterol Level': request.POST.get('CholesterolLevel', 0),
         }
@@ -110,6 +113,9 @@ def predict_result(request):
 
         cholesterollevel_encoded = cholesterollevel_mapping.get(new_input['Cholesterol Level'], -1)
         new_input['Cholesterol Level'] = cholesterollevel_encoded
+
+        gender_encoded = gender_mapping.get(new_input['Gender'], -1)
+        new_input['Gender'] = gender_encoded
 
         print("New Input:", new_input)
         
