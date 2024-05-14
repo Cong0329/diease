@@ -92,6 +92,9 @@ def predict_result(request):
             'Blood Pressure': request.POST.get('BloodPressure', 0),
             'Cholesterol Level': request.POST.get('CholesterolLevel', 0),
         }
+
+        if new_input['Disease'] not in disease_names:
+            return HttpResponse('Error: Invalid Disease name provided.')
         
         disease_encoded = disease_mapping.get(new_input['Disease'], -1)
         new_input['Disease'] = disease_encoded
