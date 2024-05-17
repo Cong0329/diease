@@ -1,107 +1,294 @@
 {% extends 'app/base.html' %} {% load static %} {% block home-content %}
+
 <style>
   .container {
-    background-color: #f8f9fa;
+    background-color: hsla(197, 88%, 80%, 0.6);
     border-radius: 20px;
   }
+  .title {
+    padding-left: 15%;
+  }
+  .background {
+    background-color: white;
+    width: 90%;
+    height: 90%;
+    border-radius: 20px;
+  }
+  .advice {
+    height: 65%;
+    background-color: hsla(197, 88%, 60%, 0.6);
+    margin: 10px 10% 10px 10%;
+    border-radius: 20px;
+  }
+  .result {
+    justify-content: space-between !important;
+  }
+  .sp-left {
+    background-color: white;
+    height: 30px;
+    width: 25%;
+    border-radius: 0 10px 10px 0;
+  }
+  .sp-right {
+    background-color: white;
+    height: 30px;
+    width: 25%;
+    border-radius: 10px 0 0 10px;
+  }
 </style>
-<div class="container mt-3">
+<div class="container mt-5">
   <div class="row">
-    <div class="col-12 title text-center py-3">
+    <div class="col-12 title py-3 text-white">
       <h2>Enter Patient Data</h2>
     </div>
 
-    <form method="POST" action="{% url 'predict_result' %}" class="col-12">
-      {% csrf_token %}
-      <div class="row px-4">
-        <div class="col-6">
-          <label for="name">Name:</label>
-          <input type="text" id="name" name="Name" class="form-control" />
+    <form
+      id="patient-form"
+      method="POST"
+      action="{% url 'predict_result' %}"
+      class="row"
+    >
+      <div class="col-6 input text-white">
+        {% csrf_token %}
+        <div class="row px-4">
+          <div class="col-6">
+            <label for="name" class="pl-2">Name:</label>
+            <input
+              type="text"
+              id="name"
+              name="Name"
+              class="form-control rounded-pill"
+            />
+          </div>
+          <div class="col-6">
+            <label for="disease" class="pl-2">Disease:</label>
+            <input
+              class="form-control rounded-pill"
+              type="text"
+              id="disease"
+              name="Disease"
+            />
+          </div>
+          <div class="col-6 mt-3">
+            <label for="fever" class="pl-2">Fever:</label>
+            <select
+              class="form-control rounded-pill"
+              id="fever"
+              name="Fever"
+              style="color: hsla(197, 88%, 40%, 0.6)"
+            >
+              <option selected disabled value="">Choose...</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-6 mt-3">
+            <label for="cough" class="pl-2">Cough:</label>
+            <select
+              class="form-control rounded-pill"
+              id="cough"
+              name="Cough"
+              style="color: hsla(197, 88%, 40%, 0.6)"
+            >
+              <option selected disabled value="">Choose...</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-6 mt-3">
+            <label for="fatigue" class="pl-2">Fatigue:</label>
+            <select
+              class="form-control rounded-pill"
+              id="fatigue"
+              name="Fatigue"
+              style="color: hsla(197, 88%, 40%, 0.6)"
+            >
+              <option selected disabled value="">Choose...</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-6 mt-3">
+            <label for="difficulty_breathing" class="pl-2"
+              >Difficulty Breathing:</label
+            >
+            <select
+              class="form-control rounded-pill"
+              id="difficulty_breathing"
+              name="DifficultyBreathing"
+              style="color: hsla(197, 88%, 40%, 0.6)"
+            >
+              <option selected disabled value="">Choose...</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-6 mt-3">
+            <label for="age" class="pl-2">Age:</label>
+            <input
+              class="form-control rounded-pill"
+              type="number"
+              id="age"
+              name="Age"
+            />
+          </div>
+          <div class="col-6 mt-3">
+            <label for="gender" class="pl-2">Gender:</label>
+            <select
+              class="form-control rounded-pill"
+              id="gender"
+              name="Gender"
+              style="color: hsla(197, 88%, 40%, 0.6)"
+            >
+              <option selected disabled value="">Choose...</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+          <div class="col-6 mt-3">
+            <label for="blood_pressure" class="pl-2">Blood Pressure:</label>
+            <select
+              class="form-control rounded-pill"
+              id="blood_pressure"
+              name="BloodPressure"
+              style="color: hsla(197, 88%, 40%, 0.6)"
+            >
+              <option selected disabled value="">Choose...</option>
+              <option value="Low">Low</option>
+              <option value="Normal">Normal</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+          <div class="col-6 mt-3">
+            <label for="cholesterol_level" class="pl-2"
+              >Cholesterol Level:</label
+            >
+            <select
+              class="form-control rounded-pill"
+              id="cholesterol_level"
+              name="CholesterolLevel"
+              style="color: hsla(197, 88%, 40%, 0.6)"
+            >
+              <option selected disabled value="">Choose...</option>
+              <option value="Low">Low</option>
+              <option value="Normal">Normal</option>
+              <option value="High">High</option>
+            </select>
+          </div>
+          <div class="col-12 text-center py-3">
+            <input
+              type="submit"
+              value="Submit"
+              class="btn btn-light rounded-pill"
+              style="color: hsla(197, 88%, 40%, 0.6)"
+            />
+          </div>
         </div>
-        <div class="col-6">
-          <label for="disease">Disease:</label>
-          <input class="form-control" type="text" id="disease" name="Disease" />
-        </div>
-        <div class="col-6 mt-3">
-          <label for="fever">Fever:</label>
-          <select class="form-control" id="fever" name="Fever">
-            <option selected disabled value="">Choose...</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-        </div>
-        <div class="col-6 mt-3">
-          <label for="cough">Cough:</label>
-          <select class="form-control" id="cough" name="Cough">
-            <option selected disabled value="">Choose...</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-        </div>
-        <div class="col-6 mt-3">
-          <label for="fatigue">Fatigue:</label>
-          <select class="form-control" id="fatigue" name="Fatigue">
-            <option selected disabled value="">Choose...</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-        </div>
-        <div class="col-6 mt-3">
-          <label for="difficulty_breathing">Difficulty Breathing:</label>
-          <select
-            class="form-control"
-            id="difficulty_breathing"
-            name="DifficultyBreathing"
+      </div>
+      <div class="col-6 predict">
+        <div class="background">
+          <div
+            class="title-predict text-center pt-3 text-white d-flex justify-content-center"
           >
-            <option selected disabled value="">Choose...</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-        </div>
-        <div class="col-6 mt-3">
-          <label for="age">Age:</label>
-          <input class="form-control" type="number" id="age" name="Age" />
-        </div>
-        <div class="col-6 mt-3">
-          <label for="gender">Gender:</label>
-          <select class="form-control" id="gender" name="Gender">
-            <option selected disabled value="">Choose...</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
-        </div>
-        <div class="col-6 mt-3">
-          <label for="blood_pressure">Blood Pressure:</label>
-          <select class="form-control" id="blood_pressure" name="BloodPressure">
-            <option selected disabled value="">Choose...</option>
-            <option value="Low">Low</option>
-            <option value="Normal">Normal</option>
-            <option value="High">High</option>
-          </select>
-        </div>
-        <div class="col-6 mt-3">
-          <label for="cholesterol_level">Cholesterol Level:</label>
-          <select
-            class="form-control"
-            id="cholesterol_level"
-            name="CholesterolLevel"
+            <h3
+              class="rounded-pill py-2 px-3"
+              style="background-color: hsla(197, 88%, 60%, 0.6)"
+            >
+              Predict Result
+            </h3>
+          </div>
+          <div class="result text-center d-flex">
+            <div class="sp-left"></div>
+            <h4
+              id="predicted-result-text"
+              class=""
+              style="color: hsla(197, 88%, 60%, 0.6)"
+            >
+              {{ predicted_result }}
+            </h4>
+            <div class="sp-right"></div>
+          </div>
+          <div
+            class="advice d-flex justify-content-center align-items-center mt-3"
           >
-            <option selected disabled value="">Choose...</option>
-            <option value="Low">Low</option>
-            <option value="Normal">Normal</option>
-            <option value="High">High</option>
-          </select>
-        </div>
-        <div class="col-12 text-center py-3">
-          <input
-            type="submit"
-            value="Submit"
-            class="btn btn-outline-secondary"
-          />
+            <p class="px-5 text-white default">
+              "Remember that regardless of the result, you are not alone in this
+              journey. Your strength and resilience are remarkable, and you have
+              a team of healthcare professionals and loved ones supporting you
+              every step of the way. Stay hopeful, stay strong, and remember
+              that every challenge you overcome brings you closer to brighter
+              days ahead."
+            </p>
+            <p class="px-2 pt-2 text-white positive" style="display: none">
+              "It's important to remain calm and follow the guidance of your
+              healthcare provider closely. While testing positive for [disease]
+              may feel overwhelming, remember that you're not alone in this
+              journey. Focus on getting the care and support you need to manage
+              your condition effectively. Follow your doctor's recommendations
+              for treatment and lifestyle adjustments, and don't hesitate to
+              reach out if you have any questions or concerns. Remember, early
+              detection and proper management are key to a successful recovery."
+            </p>
+            <p class="px-3 pt-2 text-white negative" style="display: none">
+              "Although your test results show that you're negative for
+              [disease], it's essential to continue practicing preventive
+              measures to safeguard your health. Stay informed about the latest
+              guidelines for [disease] prevention and follow them diligently.
+              Remember to prioritize your overall well-being by maintaining a
+              healthy lifestyle, including regular exercise, balanced nutrition,
+              and adequate rest. While this negative result is reassuring, it's
+              still important to remain vigilant and proactive about your
+              health."
+            </p>
+          </div>
         </div>
       </div>
     </form>
   </div>
 </div>
+
+<script>
+  function submitForm() {
+    var formData = new FormData(document.getElementById("patient-form"));
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          document.getElementById("predicted-result-text").style.padding =
+            "3rem";
+          handlePredictionResult();
+        }
+      }
+    };
+    xhr.open("POST", "{% url 'predict_result' %}", true);
+    xhr.send(formData);
+  }
+
+  function handlePredictionResult() {
+    var predictedResult = document
+      .getElementById("predicted-result-text")
+      .innerText.trim();
+    var positiveAdvice = document.querySelector(".positive");
+    var negativeAdvice = document.querySelector(".negative");
+    var defaultAdvice = document.querySelector(".default");
+
+    // Hiển thị thẻ defaultAdvice mặc định
+    defaultAdvice.style.display = "block";
+
+    if (predictedResult === "Positive") {
+      positiveAdvice.style.display = "block";
+      // Ẩn thẻ defaultAdvice khi hiển thị positive
+      defaultAdvice.style.display = "none";
+    } else if (predictedResult === "Negative") {
+      negativeAdvice.style.display = "block";
+      // Ẩn thẻ defaultAdvice khi hiển thị negative
+      defaultAdvice.style.display = "none";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    handlePredictionResult();
+  });
+</script>
 
 {% endblock home-content %}

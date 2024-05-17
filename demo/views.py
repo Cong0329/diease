@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from sklearn.metrics import f1_score, make_scorer, mean_absolute_error, precision_score
 from .models import *
 from django.http import HttpResponse, JsonResponse
 import numpy as np
@@ -64,7 +63,6 @@ def predict_result(request):
 
 
         # New input for prediction
-        # New input for prediction
         new_input = {
             'Name': request.POST.get('Name', ''),
             'Disease': request.POST.get('Disease', ''),
@@ -111,10 +109,11 @@ def predict_result(request):
         patient_data.save()
 
         # Render HTML template with predicted result
-        html_content = f"<html><body><h1>Predicted Result: {'Positive' if predicted_result == 1 else 'Negative'}</h1></body></html>"
-
-        # Return HTML response
-        return HttpResponse(html_content)
+        context = {
+            'predicted_result': "Positive" if predicted_result == 1 else "Negative"
+        }
+        return render(request, 'app/home.html', context)
 
     else:
         return HttpResponse('Only POST requests are allowed.')
+    
